@@ -100,15 +100,20 @@ function EditProduct() {
       }
 
       // Send the PUT request to update the product with the correct product ID
-      const response = await axios.put(
-        `http://localhost:3001/api/v1/product/editproduct/${productId}`, // Correct usage of productId
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+   
+        const token = localStorage.getItem('token'); // Retrieve the token from local storage
+
+        const response = await axios.put(
+            `http://localhost:3001/api/v1/product/editproduct/${productId}`, // Correct usage of productId
+            formData,
+            {
+                headers: {
+                    "Content-Type": "multipart/form-data", // Set the content type for form data
+                    "Authorization": `Bearer ${token}`, // Include the token in the request header
+                },
+            }
+        );
+  
 
       // Log the successful response
       const { message, product } = response.data;
